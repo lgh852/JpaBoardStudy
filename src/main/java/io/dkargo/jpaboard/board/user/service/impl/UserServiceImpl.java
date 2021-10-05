@@ -1,5 +1,6 @@
 package io.dkargo.jpaboard.board.user.service.impl;
 
+import io.dkargo.jpaboard.board.entity.PageRequest;
 import io.dkargo.jpaboard.board.entity.User;
 import io.dkargo.jpaboard.board.error.DkargoException;
 import io.dkargo.jpaboard.board.error.ErrorCode;
@@ -9,7 +10,7 @@ import io.dkargo.jpaboard.board.user.dto.response.ResCreateUserDto;
 import io.dkargo.jpaboard.board.user.dto.response.ResGetUserDetailDto;
 import io.dkargo.jpaboard.board.user.dto.response.ResGetUserListDto;
 import io.dkargo.jpaboard.board.user.repository.UserRepository;
-import io.dkargo.jpaboard.board.user.service.UserSerivce;
+import io.dkargo.jpaboard.board.user.service.UserServce;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserSerivce {
+public class UserServiceImpl implements UserServce {
 
     private final UserRepository userRepository;
 
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserSerivce {
     }
 
     public ResGetUserListDto getUserList(int page, int size) {
-        io.dkargo.munzi.board.entity.PageRequest pr = new io.dkargo.munzi.board.entity.PageRequest(page, size, Sort.Direction.DESC);
+        PageRequest pr = new PageRequest(page, size, Sort.Direction.DESC);
         List<User> userList = userRepository.findAll(pr.of()).getContent();
 
         long count = userRepository.count();

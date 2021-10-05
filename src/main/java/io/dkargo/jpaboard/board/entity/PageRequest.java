@@ -1,4 +1,4 @@
-package io.dkargo.munzi.board.entity;
+package io.dkargo.jpaboard.board.entity;
 
 import org.springframework.data.domain.Sort;
 

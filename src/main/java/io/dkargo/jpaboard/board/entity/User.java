@@ -2,6 +2,7 @@ package io.dkargo.jpaboard.board.entity;
 
 import io.dkargo.jpaboard.board.entity.converter.GenderConverter;
 import io.dkargo.jpaboard.board.user.dto.request.ReqCreateUserDto;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -5,6 +5,7 @@ import io.dkargo.jpaboard.board.user.dto.request.ReqUpdateUserDto;
 import io.dkargo.jpaboard.board.user.dto.response.ResCreateUserDto;
 import io.dkargo.jpaboard.board.user.dto.response.ResGetUserDetailDto;
 import io.dkargo.jpaboard.board.user.dto.response.ResGetUserListDto;
+import io.dkargo.jpaboard.board.user.service.UserServce;
 import io.dkargo.jpaboard.board.user.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserServiceImpl userService;
+    private final UserServce userService;
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)

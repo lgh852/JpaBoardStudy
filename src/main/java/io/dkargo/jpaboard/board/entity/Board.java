@@ -1,6 +1,6 @@
 package io.dkargo.jpaboard.board.entity;
 
-import io.dkargo.jpaboard.board.board.service.dto.request.ReqCreateBoardDto;
+import io.dkargo.jpaboard.board.board.dto.request.ReqCreateBoardDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
