@@ -2,6 +2,7 @@ package io.dkargo.jpaboard.board.user.dto.response;
 
 import io.dkargo.jpaboard.board.entity.Gender;
 import io.dkargo.jpaboard.board.entity.User;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResGetUserDetailDto {
 
+    @ApiModelProperty(value = "이메일")
     private String email;
 
+    @ApiModelProperty(value = "별명")
     private String nickname;
 
+    @ApiModelProperty(value = "성별")
     private Gender gender;
 
+    @ApiModelProperty(value = "등록일")
     private LocalDateTime createdAt;
 
+    @ApiModelProperty(value = "변경")
     private LocalDateTime updatedAt;
 
     public ResGetUserDetailDto(User user) {

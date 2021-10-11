@@ -5,9 +5,11 @@ import io.dkargo.jpaboard.board.board.service.BoardService;
 import io.dkargo.jpaboard.board.board.dto.request.ReqCreateBoardDto;
 import io.dkargo.jpaboard.board.board.dto.request.ReqUpdateBoardDto;
 import io.dkargo.jpaboard.board.board.dto.response.ResCreateBoardDto;
-import io.dkargo.jpaboard.board.board.dto.response.ResGetBoardDetailDto;
+import io.dkargo.jpaboard.board.board.dto.response.ResGetBoardDto;
 import io.dkargo.jpaboard.board.board.dto.response.ResGetBoardListDto;
+import io.dkargo.jpaboard.board.category.repository.CategoryRepository;
 import io.dkargo.jpaboard.board.entity.Board;
+import io.dkargo.jpaboard.board.entity.Category;
 import io.dkargo.jpaboard.board.entity.PageRequest;
 import io.dkargo.jpaboard.board.entity.User;
 import io.dkargo.jpaboard.board.error.DkargoException;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,13 +30,19 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
     public ResCreateBoardDto createBoard(ReqCreateBoardDto dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new DkargoException(ErrorCode.USER_NOT_FOUND));
 
-        Board board = new Board(dto, user);
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new DkargoException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        Board board = new Board(dto, user, category);
+
         boardRepository.save(board);
+
 
         return new ResCreateBoardDto(board.getId());
     }
@@ -44,23 +53,22 @@ public class BoardServiceImpl implements BoardService {
 
         long count = boardRepository.count();
         int totalPage = (int) ((count + size - 1) / size);
+
         return new ResGetBoardListDto(boardList, page, size, totalPage);
     }
 
-    public ResGetBoardDetailDto getBoardDetail(long boardId) {
+    public ResGetBoardDto getBoardDetail(long boardId) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new DkargoException(ErrorCode.BOARD_NOT_FOUND));
 
-        return new ResGetBoardDetailDto(board);
-
+        return new ResGetBoardDto(board);
     }
 
     public Boolean updateBoard(ReqUpdateBoardDto dto) {
         Board board = boardRepository.findById(dto.getBoardId())
                 .orElseThrow(() -> new DkargoException(ErrorCode.BOARD_NOT_FOUND));
-
-        board.changeTitle(dto.getTitle());
-        board.changeContent(dto.getContent());
+        Optional<Category> category = categoryRepository.findById(dto.getCategoryId());
+        board.changeBoard(dto, category);
 
         return true;
     }

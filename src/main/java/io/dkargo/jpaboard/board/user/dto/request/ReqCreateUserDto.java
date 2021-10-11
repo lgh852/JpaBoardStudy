@@ -18,15 +18,15 @@ public class ReqCreateUserDto {
 
     @NotEmpty
     @Email
-    @ApiModelProperty(example = "ghlee@dkargo.io")
+    @ApiModelProperty(example = "ghlee@dkargo.io", value = "이메일", required = true)
     private String email;
 
     @NotEmpty
-    @ApiModelProperty(example = "ghlee")
+    @ApiModelProperty(example = "ghlee", value = "별명", required = true )
     private String nickname;
 
     @NotNull
-    @ApiModelProperty(example = "Male")
+    @ApiModelProperty(example = "Male", value = "성별")
     private Gender gender;
 
 }

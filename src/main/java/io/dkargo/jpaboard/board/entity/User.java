@@ -3,9 +3,7 @@ package io.dkargo.jpaboard.board.entity;
 import io.dkargo.jpaboard.board.entity.converter.GenderConverter;
 import io.dkargo.jpaboard.board.user.dto.request.ReqCreateUserDto;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,9 +14,12 @@ import java.util.List;
 @Getter
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class User extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     private String email;
@@ -36,9 +37,11 @@ public class User extends BaseTimeEntity {
         this.email = dto.getEmail();
         this.nickname = dto.getNickname();
         this.gender = dto.getGender();
+        this.setCreateAt(LocalDateTime.now());
     }
 
     public void changeNickname(String nickname) {
         this.nickname = nickname;
+        this.setChangeAt(LocalDateTime.now());
     }
 }

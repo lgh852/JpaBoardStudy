@@ -1,5 +1,6 @@
 package io.dkargo.jpaboard.board.user.dto.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +16,10 @@ public class ReqUpdateUserDto {
 
     @Length(min = 8 , max = 20)
     @NotEmpty
+    @ApiModelProperty(value = "사용자 번호", required = true)
     private long userId;
 
+    @ApiModelProperty(value = "작성자")
     private String nickname;
 
 }

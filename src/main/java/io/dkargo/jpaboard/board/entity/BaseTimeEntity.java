@@ -1,5 +1,7 @@
 package io.dkargo.jpaboard.board.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -7,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Data
@@ -14,17 +17,16 @@ public class BaseTimeEntity {
 
     @CreatedDate
     @Column(updatable = false)
-    private LocalDate createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 
-    //@CreatedBy
-    private String createBy;
+//    private LocalDateTime createBy;
 
     @LastModifiedDate
-    @Column(updatable = false)
-    private LocalDate changeAt;
+    @Column(updatable = true)
+    private LocalDateTime changeAt;
 
     //@LastModifiedBy
-    private String changeBy;
+//    private String changeBy;
 
 
 }
