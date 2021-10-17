@@ -1,4 +1,4 @@
-package io.dkargo.jpaboard.board.user.dto.response;
+package io.dkargo.jpaboard.board.board.dto.request;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
@@ -9,10 +9,16 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResCreateUserDto {
+@AllArgsConstructor
+public class ReqDeleteBoardDto {
 
-    @ApiModelProperty(value = "사용자 ID")
+    @NotNull
+    @ApiModelProperty(value = "등록 회원 아이디")
     private Long userId;
+
+    @NotNull
+    @ApiModelProperty(value = "삭제할 게시판 ID")
+    private Long boardId;
+
 }

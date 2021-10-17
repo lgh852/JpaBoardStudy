@@ -20,7 +20,10 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, 20001,"User not found (잘못된 유저 정보 입니다.)"),
     BOARD_NOT_FOUND(404, 20002, "Board not found (잘못된 게시판 정보 입니다.)"),
     CATEGORY_NOT_FOUND(404, 20003, "Category not found (잘못된 카테고리 정보 입니다.)"),
-    CATEGORY_MISS_MATCH_USER(404, 20004, "Category miss match user(일치하지 않는 유저 정보 입니다.)");
+    BOARD_MISS_MATCH_USER(400, 20004, "Board miss match user(일치하지 않는 유저 정보 입니다.)"),
+    CATEGORY_MISS_MATCH_USER(405, 20005, "Category miss match user(일치하지 않는 유저 정보 입니다.)"),
+    FILE_NOT_FOUND(404,2005,"File not found (파일을 찾을수 없습니다.)"),
+    FILE_UPLOAD_FAILED(400,2006,"File Upload Error");
 
     private int status;
     private int code;

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 public class ReqUpdateBoardDto {
@@ -13,10 +14,14 @@ public class ReqUpdateBoardDto {
     @ApiModelProperty( value = "게시판 ID", required = true )
     private long boardId;
 
-    @ApiModelProperty( value = "카테고리 ID" )
-    private long categoryId;
+    @NotNull
+    @ApiModelProperty( value = "사용자 ID", required = true )
+    private long userId;
 
-    @ApiModelProperty( value = "카테고리 ID" )
+    @ApiModelProperty( value = "카테고리 목록" )
+    private List<Long> categoryList;
+
+    @ApiModelProperty( value = "게시판 제목" )
     private String title;
 
     @ApiModelProperty( value = "내용" )

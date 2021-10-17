@@ -1,5 +1,6 @@
 package io.dkargo.jpaboard.board.board.controller;
 
+import io.dkargo.jpaboard.board.board.dto.request.ReqDeleteBoardDto;
 import io.dkargo.jpaboard.board.board.service.BoardService;
 import io.dkargo.jpaboard.board.board.dto.request.ReqCreateBoardDto;
 import io.dkargo.jpaboard.board.board.dto.request.ReqUpdateBoardDto;
@@ -82,6 +83,18 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     public Boolean updateBoard(@Validated @RequestBody ReqUpdateBoardDto dto) {
         return boardService.updateBoard(dto);
+    }
+
+    @ApiOperation(
+            value = "게시판 삭제",
+            notes = "게시판을 삭제한다."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "삭제 true", response = Boolean.class)
+    })
+    @DeleteMapping("/")
+    public Boolean deleteBoard(@Validated @RequestBody ReqDeleteBoardDto reqDeleteBoardDto){
+        return boardService.deleteBoard(reqDeleteBoardDto);
     }
 
 }

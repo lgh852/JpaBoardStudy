@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -16,18 +17,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReqCreateCategoryDto {
 
-    @NotNull
-    @ApiModelProperty( value = "화원 번호", required = true )
-    private long userId;
-
-    @NotEmpty
+    @NotBlank
     @ApiModelProperty( value = "카테고리 제목", required = true )
     private String title;
 
     public Category toCategory(){
-        return Category.builder()
-                .title(this.title)
-                .build();
+        return new Category(this.title);
     }
 
 }

@@ -20,9 +20,6 @@ public class ResGetCategoryDto {
     @ApiModelProperty(value = "카테고리 제목")
     private String title;
 
-    @ApiModelProperty(value = "등록자 이름")
-    private String writer;
-
     @ApiModelProperty(value = "등록일")
     private LocalDateTime createAt;
 
@@ -32,7 +29,6 @@ public class ResGetCategoryDto {
     public ResGetCategoryDto(Category category) {
         this.categoryId = category.getId();
         this.title = category.getTitle();
-        this.writer = category.getUser().getNickname();
         this.createAt = category.getCreateAt();
         this.changeAt = category.getChangeAt();
     }

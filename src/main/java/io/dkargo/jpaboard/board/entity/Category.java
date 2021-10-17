@@ -1,20 +1,19 @@
 package io.dkargo.jpaboard.board.entity;
 
-import com.fasterxml.classmate.AnnotationOverrides;
-import io.dkargo.jpaboard.board.category.dto.request.ReqCreateCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.request.ReqUpdateCategoryDto;
 import lombok.*;
-import org.apache.tomcat.jni.Local;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicUpdate
 public class Category extends BaseTimeEntity{
 
     @Id
@@ -24,16 +23,20 @@ public class Category extends BaseTimeEntity{
 
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "category")
+    private List<BoardCategory> boardCategory;
 
-    public void setUser(User user) {
-        this.user = user;
+    public Category(Long id, String title){
+        this.id = id;
+        this.title = title;
+        this.changeAt = LocalDateTime.now();
+    }
+
+    public Category(String title) {
+        this.title = title;
     }
 
     public void updateCategory(ReqUpdateCategoryDto reqDto){
         this.title = reqDto.getTitle();
-        this.setChangeAt(LocalDateTime.now());
     }
 }

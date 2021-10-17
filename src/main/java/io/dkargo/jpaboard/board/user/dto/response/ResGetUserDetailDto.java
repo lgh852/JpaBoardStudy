@@ -26,11 +26,17 @@ public class ResGetUserDetailDto {
     private LocalDateTime createdAt;
 
     @ApiModelProperty(value = "변경")
-    private LocalDateTime updatedAt;
+    private LocalDateTime changeAt;
+
+    @ApiModelProperty(value = "프로필 사진 경로")
+    private String profilePath;
 
     public ResGetUserDetailDto(User user) {
         this.email = user.getEmail();
         this.nickname = user.getNickname();
         this.gender = user.getGender();
+        this.profilePath = user.getProfilePath();
+        this.createdAt = user.getCreateAt();
+        this.changeAt = user.getChangeAt();
     }
 }

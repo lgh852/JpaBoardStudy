@@ -4,8 +4,10 @@ import io.dkargo.jpaboard.board.entity.converter.GenderConverter;
 import io.dkargo.jpaboard.board.user.dto.request.ReqCreateUserDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "users")
+@DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class User extends BaseTimeEntity {
@@ -26,22 +29,25 @@ public class User extends BaseTimeEntity {
 
     private String nickname;
 
-//    @Enumerated(EnumType.STRING)
+    private String profilePath;
+
     @Convert(converter = GenderConverter.class)
     private Gender gender;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boardList = new ArrayList<>();
 
-    public User(ReqCreateUserDto dto) {
+    public User(ReqCreateUserDto dto, String profilePath) {
         this.email = dto.getEmail();
         this.nickname = dto.getNickname();
         this.gender = dto.getGender();
-        this.setCreateAt(LocalDateTime.now());
+        this.profilePath = profilePath;
+        this.changeAt = LocalDateTime.now();
     }
 
-    public void changeNickname(String nickname) {
+    public void changeUser(String nickname, String profilePath) {
         this.nickname = nickname;
-        this.setChangeAt(LocalDateTime.now());
+        if (profilePath != null)
+        this.profilePath = profilePath;
     }
 }

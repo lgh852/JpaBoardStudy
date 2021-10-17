@@ -1,7 +1,6 @@
 package io.dkargo.jpaboard.board.category.service;
 
 import io.dkargo.jpaboard.board.category.dto.request.ReqCreateCategoryDto;
-import io.dkargo.jpaboard.board.category.dto.request.ReqDeleteCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.request.ReqUpdateCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.response.ResCreateCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.response.ResGetCategoryDto;
@@ -13,7 +12,7 @@ public interface CategoryService {
 
     boolean updateCategory(ReqUpdateCategoryDto reqDto);
 
-    boolean deleteCategory(ReqDeleteCategoryDto reqDto);
+    boolean deleteCategory(Long categoryId);
 
     ResGetCategoryDto getCategory(Long categoryId);
 

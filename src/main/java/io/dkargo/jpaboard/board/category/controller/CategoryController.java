@@ -1,7 +1,6 @@
 package io.dkargo.jpaboard.board.category.controller;
 
 import io.dkargo.jpaboard.board.category.dto.request.ReqCreateCategoryDto;
-import io.dkargo.jpaboard.board.category.dto.request.ReqDeleteCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.request.ReqUpdateCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.response.ResCreateCategoryDto;
 import io.dkargo.jpaboard.board.category.dto.response.ResGetCategoryDto;
@@ -59,10 +58,13 @@ public class CategoryController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "삭제시 true", response = Boolean.class)
     })
-    @DeleteMapping("")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryId", value = "케테고리 ID", required = true, dataType = "long", paramType = "path")
+    })
+    @DeleteMapping("{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean deleteCategory (@Valid @RequestBody ReqDeleteCategoryDto reqDto){
-        return categoryService.deleteCategory(reqDto);
+    public boolean deleteCategory (@PathVariable(value = "categoryId", required = true) Long categoryId){
+        return categoryService.deleteCategory(categoryId);
     }
 
     @ApiOperation(

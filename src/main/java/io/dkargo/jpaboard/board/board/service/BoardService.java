@@ -1,6 +1,7 @@
 package io.dkargo.jpaboard.board.board.service;
 
 import io.dkargo.jpaboard.board.board.dto.request.ReqCreateBoardDto;
+import io.dkargo.jpaboard.board.board.dto.request.ReqDeleteBoardDto;
 import io.dkargo.jpaboard.board.board.dto.request.ReqUpdateBoardDto;
 import io.dkargo.jpaboard.board.board.dto.response.ResCreateBoardDto;
 import io.dkargo.jpaboard.board.board.dto.response.ResGetBoardDto;
@@ -14,4 +15,6 @@ public interface BoardService {
     public ResGetBoardDto getBoardDetail(long userId);
 
     public Boolean updateBoard(ReqUpdateBoardDto dto);
+
+    Boolean deleteBoard(ReqDeleteBoardDto reqDeleteBoardDto);
 }
